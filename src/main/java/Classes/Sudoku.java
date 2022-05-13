@@ -1,10 +1,37 @@
-import java.io.IOException;
+package Classes;
 
 public class Sudoku {
 
 	private static final int TAMANHO_TABULEIRO = 9;
 
 
+	public static void main(String[] args) {
+
+		int[][] tabuleiro = { 
+				{ 2, 0, 0, 0, 0, 0, 0, 3, 5 }, 
+				{ 0, 5, 0, 0, 1, 9, 6, 4, 0 },
+				{ 0, 0, 0, 0, 4, 0, 7, 0, 0 }, 
+				{ 0, 0, 0, 0, 0, 2, 0, 6, 0 }, 
+				{ 0, 4, 0, 0, 8, 1, 5, 9, 0 },
+				{ 0, 0, 9, 7, 5, 0, 0, 0, 0 }, 
+				{ 9, 0, 0, 8, 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 2, 0, 0, 8, 0 },
+				{ 0, 0, 5, 0, 0, 0, 0, 0, 3 } 
+				};
+
+		System.out.print("TABULEIRO DE ENTRADA \n");
+		mostrarTabuleiro(tabuleiro);
+		
+		long tempoInicial = System.currentTimeMillis();
+		resolverTabuleiro(tabuleiro);
+		long tempoFinal = System.currentTimeMillis();
+		long tempoExecucao = (tempoFinal - tempoInicial);
+		
+		System.out.print("TABULEIRO DE SAÍDA \n");
+		mostrarTabuleiro(tabuleiro);
+		System.out.println(tempoExecucao);
+	}
+	
 	private static void mostrarTabuleiro(int[][] tabuleiro) {
 
 		for (int linha = 0; linha < TAMANHO_TABULEIRO; linha++) {
@@ -56,18 +83,14 @@ public class Sudoku {
 				&& !numeroExisteNoTabuleiroLocal(tabuleiro, numeroParaTentativa, linha, coluna);
 	}
 
-	
-	public boolean resolverTabuleiro(int[][] tabuleiro){
+	private static boolean resolverTabuleiro(int[][] tabuleiro) {
 		for (int linha = 0; linha < TAMANHO_TABULEIRO; linha++) {
-			
 			for (int coluna = 0; coluna < TAMANHO_TABULEIRO; coluna++) {
-				
 				if (tabuleiro[linha][coluna] == 0) {
 					for (int numeroParaTentativa = 1; numeroParaTentativa <= TAMANHO_TABULEIRO; numeroParaTentativa++) {
-						
 						if (ehUmPosicionamentoValido(tabuleiro, numeroParaTentativa, linha, coluna)) {
 							tabuleiro[linha][coluna] = numeroParaTentativa;
-							
+
 							if (resolverTabuleiro(tabuleiro)) {
 								return true;
 							} else {
