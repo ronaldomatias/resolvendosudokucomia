@@ -2,9 +2,12 @@ package Testes;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import Classes.FormatarEntradas;
 import Classes.TemperaSimulada;
 
 public class TesteSimulatedAnnealing {
@@ -30,14 +33,12 @@ public class TesteSimulatedAnnealing {
 				};
 	}
 	
-	
 	@Test
 	public void testeFuncaoCusto() {
 		
 		assertEquals(55, temperaSimulada.custo(entrada));
 	}
 
-	
 	@Test
 	public void testeTemperaSimulada() {
 		
@@ -48,5 +49,17 @@ public class TesteSimulatedAnnealing {
 		System.out.println(new TemperaSimulada().custo(tabuleiro));
 	}
 	
-	
+	@Test
+	public void testeFormatarEntradas() throws InterruptedException {
+		
+		FormatarEntradas ce = new FormatarEntradas();
+		List<int [][]> tabuleiros = ce.formatarEntradas();
+		
+		for(int i=0; i < tabuleiros.size(); i++) {
+			System.out.println("Tabuleiro: " + i);
+			new TemperaSimulada().mostrarTabuleiro(tabuleiros.get(i));
+		}
+		
+		
+	}
 }
